@@ -1,54 +1,17 @@
-/// Custom Page
-const playerHuman = function() {
-  //if human is chosen, remove listener
-  //make sure other listener is ON
-  $('#icHuman').off('click', playerHuman);
-  $('#cookieAI').on('click', playerAI);
-
-  $('#player').val("icHuman");
-  alert("Game on, Ice Cream Addict!")
-};
-
-const playerAI = function() {
-  $('#icHuman').on('click', playerHuman);
-  $('#cookieAI').off('click', playerAI);
-
-  $('#player').val("playerAI");
-  alert("Game on, Cookie Monster!")
-};
-
-const playFirst = function() {
-  if ( document.getElementById("alertYes").checked === true) {
-  		playFirstAI = false;
-      $('#playFirstAI').val("false");
-	}
-	if (document.getElementById("alertNo").checked === true) {
-		  playFirstAI = true;
-      $('#playFirstAI').val("true");
-  }
-  alert("Game on, you play " + ( playFirstAI===true ? "second." : "first.") );
-};
-
 /// Game Page
-const playerHumanObj = {
-  player: "X",
-  img: "img/icHuman.jpg"
-};
 
-const playerAIObj = {
-  player: "O",
-  img: "img/cookieAI.jpg"
-};
+//const playLevel = 1; //default
 
-const clickBox = function () {
-  /*const name = this.getAttribute('name');//this.attr('name');
+const flipCard = function () {
+  const name = this.getAttribute('name');//this.attr('name');
   const idx = name.split('_')[1];
 
   const gameover = gamePlay(parseInt(idx));
+  
   if (gameover===true) {
 	  addShuffle();
 	  removeHandler();
-  }*/
+  }
 
 };
 
@@ -63,15 +26,11 @@ const showBoard = function(index) {
   boxElement.setAttribute('id', idBox);
   boxElement.setAttribute('name', idBox);
 
-  if (gameArray[index]===playerHumanObj.player) {
-	   boxElement.setAttribute('src', playerHumanObj.img);
-  } else {
-	   boxElement.setAttribute('src', playerAIObj.img);
-  }
+  boxElement.setAttribute('src', gameImagesArray[index] ) ;
 
   pNode.replaceChild(boxElement, elemOld);
 
-  $(jId).off('click', clickBox);
+  //$(jId).off('click', flipCard);
 };
 
 const playAgain = function () {
@@ -98,9 +57,13 @@ const removeHandler = function () {
 
 const setupBoard = function() {
   let idb = 0;
-  let level = 2;
+  let level = 1; //5 at 120
   let imgsrow = 8;
 
+  if (playLevel>1) {
+	  level = playLevel;
+  }
+  
   ////
   imagesArray = []; //start empty
   const randIndexArray = [];
@@ -131,17 +94,19 @@ const setupBoard = function() {
 
     for (let j = 0; j < imgsrow; j++) { //ROW
     //setup game gameboard
-	     const $boxElement = $('<img>');
-       //$boxElement.attr('class', "guessword");
-       const idBox = "idBox_" + idb;
-       $boxElement.attr('id', idBox);
-	     $boxElement.attr('name', idBox);
-	     $boxElement.attr('src', "img/easter1.jpeg");
-       $boxElement.on('click', clickBox );
+	    const $boxElement = $('<img>');
+		if (level>5) {
+			$boxElement.attr('class', "imglevel6up");
+		}
+		const idBox = "idBox_" + idb;
+		$boxElement.attr('id', idBox);
+	    $boxElement.attr('name', idBox);
+	    $boxElement.attr('src', "img/shopkins.jpeg");
+		$boxElement.on('click', flipCard );
 
-       $divRow.append($boxElement);
+		$divRow.append($boxElement);
 
-       idb += 1;
+		idb += 1;
     }
 
     $('#gameboard').append($divRow);
@@ -195,9 +160,6 @@ const startGame = function() {
   // initial display of the game
   setupBoard();
 
-  if (playFirstAI===true) {
-    startAI();
-  }
 };
 
 $(document).ready( startGame );
