@@ -14,26 +14,6 @@ var cardsrow = 8;
 
 var showAlerts = false; //default
 
-//Card object
-/*function Card(suit, rank, cardImage){
-	this.suit = suit;
-	this.rank = rank;
-	this.cardImage = cardImage;
-	this.altText = rank + " of " + suit;
-}
-
-//available KINGs
-var kingHearts = new Card("Hearts", "King", "images/king-of-hearts.png");
-var kingDiamonds = new Card("Diamonds", "King", "images/king-of-diamonds.png");
-//available QUEENs
-var queenHearts = new Card("Hearts", "Queen", "images/queen-of-hearts.png");
-var queenDiamonds = new Card("Diamonds", "Queen", "images/queen-of-diamonds.png");
-
-// There are 4 unique cards 
-// Matched cards example: kingHearts is paired with kingHearts
-// Meaning only 2 cards are generated per row
-var allCards = [kingHearts, kingDiamonds, queenHearts, queenDiamonds];*/
-
 var cards = []; //holds the cards selected randomly
 
 var cardsInPlay = []; //copy of the cards currently being played
@@ -50,7 +30,6 @@ var checkForMatch = function(){
 	var cid = cardsInPlay.length - 1;
 	if( cardsInPlay[cid]===cardsInPlay[cid-1]  ) {
 			score++; //increase score
-			//console.log("Score=" + score); //debug
 			if (showAlerts) alert("You found a match!");
 
 		} else {
@@ -75,9 +54,6 @@ var levelUp = function(){
 		
 	var audio = new Audio("images/applause.mp3");
 		
-	//console.log("playLevel [" + playLevel + "], maxLevel [" + maxLevel + "]");
-	//console.log ("playLevel === maxLevel | " + (playLevel === maxLevel));
-
 	if (playLevel === maxLevel) {
 		msg = msg.concat("\nWhat a feat! You are the Winner!")
 			
@@ -106,10 +82,8 @@ var flipCard = function(){
 	//check if this is a repeat card or card that's already opened
 	if (cardIds.length>0) {
 		var cid = this.getAttribute('data-id');
-		//console.log("cid =" + cid); //debug
+
 		for (var dd = 0; dd < cardIds.length; dd++) {
-			//console.log("cardIds[dd] =" + cardIds[dd]); //debug
-			//console.log("cid===cardIds[dd]=" + cid===cardIds[dd]); //debug
 			if ( cid===cardIds[dd] ) {
 				repeat = true;
 				break;
@@ -120,16 +94,11 @@ var flipCard = function(){
 	if (!repeat) { //does not allow to click same, like an already opened card
 		repeat = false; 
 
-		this.setAttribute('src', cards[cardId]); //.cardImage);
-		//this.setAttribute('alt', cards[cardId].altText); //add alt text
-		
+		this.setAttribute('src', cards[cardId]); 
 		var cardFlipped = cards[cardId];
-		//console.log("User flipped " + cards[cardId].rank + " of " + cards[cardId].suit); //debug
-		//console.log(cardFlipped.cardImage); //debug
 
 		cardsInPlay.push(cards[cardId]); //store card object
 		cardIds.push(this.getAttribute('data-id')); //store card ids to check no-repeats
-		//console.log(cardIds); //debug
 
 		if ( cardsInPlay.length%2===0 ) { //allow cards IN PAIRS
 
@@ -143,7 +112,6 @@ var flipCard = function(){
 				//MATCHED
 
 				if (cardsInPlay.length === (playLevel*cardsrow) ) {
-					//console.log("next level");
 					levelUp();
 				}
 				
@@ -212,19 +180,14 @@ var backCard = function(){
 		//flip remaining card to back face
 		//get all images in the document
 		var images = document.body.getElementsByClassName("boardimgs");
-		//console.log("cards in play = " + cardsInPlay);
-		//console.log(images);
-		//console.log("cardIds = " + cardIds);
 
 		var cid = cardsInPlay.length - 1;
-		//console.log("last card = " + cardIds[cid]);
 
 		for ( var m = 0; m < images.length; m++ ) {
 			var did = images[m].getAttribute("data-id");
-			//console.log(did); //debug
 
 			if (did === cardIds[cid]) { //compare to remaining card
-				images[m].setAttribute('src', "img/shopkins.jpeg"); //"images/back.png"); 
+				images[m].setAttribute('src', "img/shopkins.jpeg"); 
 				cardsInPlay.pop(); //allow reset
 				cardIds.pop(); //allow reset
 				break;
@@ -235,15 +198,12 @@ var backCard = function(){
 
 function getCustom(){
 	var x = window.location.href;
-	//console.log("form: " + x); //debug
 
   	if (x.includes("index.html?")) {
   		var customvals = x.split("?")[1];
-  		//console.log(customvals); //debug
 
   		if (customvals.includes("=")) {
   			var gameLevel = parseInt(customvals.split("=")[1]);
-			//console.log(gameLevel); //debug
 
 			if ( gameLevel>=1 && gameLevel<=5 ) {
 				// accepted
@@ -257,78 +217,6 @@ var createBoard = function(){
 
 	//setup if custom was called
 	getCustom();
-
-	//console.log("createBoard level = " + playLevel);
-	//var level = playLevel;
-
-	//random selection of cards combination
-	//var levelArray = new Array(level+1); 
-	//var innerArray = new Array(cardsrow);
-
-	// using truly random logic
-	// logic: for each level, generate random row containing 2 cards placed twice each on a row at random
-	
-	/*for (var ii = 1; ii <= (level+1); ii++) {
-		
-		innerArray = []; //empty the array
-		
-		/// PART 1 
-		/// 2 cards to use for matching
-		
-		var rd1 = Math.floor(Math.random() * cardsrow); 
-
-		var rd2 = rd1;
-			// logic: run this loop until values are unique
-		do {
-			rd2 = Math.floor(Math.random() * cardsrow);
-		} while(rd1 === rd2);
-			
-		/// rd1 is card identity 1
-		/// rd2 is card identity 2
-		
-		console.log("Starting Level " + level + "-------------------------------------------------");
-		console.log("Random 2 cards = " + allCards[rd1].altText + ", " + allCards[rd2].altText);
-		
-		/// PART 2
-		/// 4 placements - rd1 gets placed 2x, rd2 gets placed 2x
-		/// their placements are determined at random
-		
-		var ranc1 = Math.floor(Math.random() * cardsrow); 
-
-		var ranc2 = ranc1;
-		// same logic
-		do {
-			ranc2 = Math.floor(Math.random() * cardsrow);
-		} while(ranc1 === ranc2);
-		
-		var ranc3 = ranc2; 
-		// same logic
-		do {
-			ranc3 = Math.floor(Math.random() * cardsrow);
-		} while(ranc3 === ranc2 || ranc3 === ranc1);
-		
-		var ranc4 = ranc3; 
-		// same logic
-		do {
-			ranc4 = Math.floor(Math.random() * cardsrow);
-		} while(ranc4 === ranc3 || ranc4 === ranc2 || ranc4 === ranc1);
-		
-
-		//// 4 placements
-		innerArray[ranc1] = allCards[rd1]; 
-		innerArray[ranc2] = allCards[rd1];
-		innerArray[ranc3] = allCards[rd2];
-		innerArray[ranc4] = allCards[rd2];
-			
-		console.log("Random placements:");
-		console.log("innerArray[" + ranc1 + "] = " + allCards[rd1].altText);
-		console.log("innerArray[" + ranc2 + "] = " + allCards[rd1].altText);
-		console.log("innerArray[" + ranc3 + "] = " + allCards[rd2].altText);
-		console.log("innerArray[" + ranc4 + "] = " + allCards[rd2].altText);
-			
-		levelArray[ii-1] = innerArray; //setup the array on the row
-		
-	}*/
 	
 	let idb = 0;
 	let level = 1; //5 at 120
@@ -360,42 +248,8 @@ var createBoard = function(){
 		cards[indexRandom] = imgLoc;
 	}
 
-
-	
-	
-	
 	//render board
 
-	/*var divCards = document.getElementById('game-board');
-
-	for (var l=1; l<=levelArray.length; l++) {
-		var divrow = document.createElement('div');
-		var rowid = "cardrow" + l
-		divrow.setAttribute('id', rowid);
-		divrow.setAttribute('class', "gameboard");
-		divCards.appendChild(divrow);
-
-		for ( var iid = 1; iid<=cardsrow; iid++) { 
-			var cardElement = document.createElement('img');
-			cardElement.setAttribute('src', "images/back.png"); 
-			
-			var imgCardId = "imgCardId" + (l>1 ? iid + cardsrow*(l-1) : iid );
-			cardElement.setAttribute('id', imgCardId);
-			var imgId = "" + (l>1 ? iid + cardsrow*(l-1) : iid )
-			cardElement.setAttribute('data-id', imgId);
-			cardElement.setAttribute('class', "boardimgs");
-			cardElement.addEventListener('click', flipCard); //listener for flipping to card image
-			cardElement.addEventListener('mouseout', backCard); //listener for flipping to back face
-
-			divrow.appendChild(cardElement);
-
-			//setup cards[] from random selection
-			cards.push(levelArray[l-1][iid-1]);
-			//important to use push, error at runtime (multiple play again) if not
-		}
-
-	}*/
-	
 	idb = 0;
 	////initial render empty board
 	for (let i = 0; i < level; i++) { //LEVEL
@@ -408,7 +262,6 @@ var createBoard = function(){
 			if (level>5) {
 				$cardElement.attr('class', "imglevel6up");
 			}
-			//const idBox = "idBox_" + idb;
 			let imgCardId = "imgCardId" + idb ;
 			$cardElement.attr('id', imgCardId);
 			$cardElement.attr('name', imgCardId);
@@ -435,39 +288,7 @@ function playAgain() { //without reloading
 
 function resetBoard() { //reset board, cards storage
 
-	/*var images = document.body.getElementsByClassName("boardimgs");
-	//console.log("images" + images); //debug
 
-	var len = images.length;
-	//clear the card images display to allow for new combination
-	if (len>0) {
-		//var pNode = images[0].parentNode;
-
-		for (var iid = 0; iid < len; iid++) {
-			var imgCardId = "imgCardId" + iid;
-			var elem = document.getElementById(imgCardId);
-			var pNode = elem.parentNode;
-			//console.log(elem); //debug
-			pNode.removeChild(elem);
-		}
-	}
-	
-	var gameboard = document.getElementById("game-board"); //parent
-
-	if (gameboard.hasChildNodes) {
-		var divs = gameboard.childNodes;
-		var len = divs.length;
-
-		for (var i=0; i< len; i++) {
-			var rowid = "cardrow" + (i+1) ;
-			var elem = document.getElementById(rowid);
-			if (elem!==null) {
-				gameboard.removeChild(elem);
-
-			}
-		}
-	}*/
-	
 	document.getElementById("game-board").innerHTML = "";
 
 	//reset the cards storage
@@ -488,9 +309,6 @@ function resetBoard() { //reset board, cards storage
 		cardIds.pop();
 	}
 
-	//console.log(cards); //debug
-	//console.log(cardsInPlay); //debug
-	//console.log(cardIds); //debug
 }
 
 function restartGame() {
