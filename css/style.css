@@ -65,7 +65,7 @@ h2 {
 	letter-spacing: 1px;
 
   color: #f500c7;
-  text-shadow: 5px 5px black;
+  text-shadow: 3px 3px black;
   text-decoration: underline;
 }
 
@@ -161,11 +161,11 @@ button:focus {
 
 a { /* Instructions Game */
 	text-decoration: none;
-	font-family: "Raleway", sans-serif;
-	color: #f15b31;
+	/*font-family: "Raleway", sans-serif;*/
+	/*color: #f15b31;*/
 	letter-spacing: 1px;
 	font-weight: 600;
-	font-size: 18px;
+	/*font-size: 18px;*/
 	text-transform: uppercase;
 	padding: 20px;
 	border-bottom: 2px solid transparent;
