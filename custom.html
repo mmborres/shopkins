@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cookie Monster Tic Tac Toe</title>
+  <title>Shopkins Memory Game</title>
 
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/game.js"></script>
-  <script src="js/jquery.js"></script>
-  <script src="js/dom.js"></script>
+  <link href="images/memcardgame.ico" rel="shortcut icon" type="image/ico">
 
 </head>
 <body>
@@ -17,36 +15,70 @@
     <header>
       <nav>
         <a href="instructions.html">Instructions</a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
         <a href="index.html">Game</a>
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		    &nbsp;&nbsp;&nbsp;
         <a href="custom.html">Custom</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="https://mmborres.github.io/contact.html">Contact</a>
       </nav>
+
     </header>
 
     <main>
-      <h2>Cookie OR Ice Cream?</h2>
-      <p class="pClass">
-        <form id="formcustom" action="index.html" method="get" class="pClass">
-          Choose Player => <br>
-          <img id="icHuman" name="icHuman" src="img/icHuman.jpg" onclick="playerHuman()">
-          <img id="cookieAI" name="cookieAI" src="img/cookieAI.jpg" onclick="playerAI()">
-          <input type="hidden" id="player" name="player" value="icHuman">
-          <br>
-          Play first?
-          <input type="radio" name="alert" id="alertYes" onclick="playFirst()" checked="checked">Yes
-  		    <input type="radio" name="alert" id="alertNo" onclick="playFirst()">No
-          <input type="hidden" id="playFirstAI" name="playFirstAI" value="false">
-        <input type="submit" value="Ready? Game On!" class="pClass">
-        </form>
+<h2>Spot ALL Shopkins Characters</h2>
+<p>Make sure to visit the <a href="instructions.html" class="contactdetails">Instructions</a> page first if you need more info on how to play the game.</p>
 
+<p class="instruct">PLEASE NOTE that this action takes you to the Game page and if you are not going to play right away, the default values will be used in the game. You need to visit this page to reset the values again. Unless of course you click on the browser's back and/or forward buttons. Coz it's unavoidable, right?</p>
 
+<p class="instruct">Use Custom Values:</p>
 
+<form id="formcustom" action="index.html" method="get" class="instruct" onsubmit="return checkValue()">
+<span class="forminput">Levels in the Game: </span><input type="text" name="gameLevel" value="" class="forminput" id="gameLevel"> <span class="forminput"><br>(Values: 1 to 10 | Default: 10, also the Max value)</span><br><br>
+<input type="submit" value="Ready? Game On!" class="inputbutton">
+</form>
 
-      </p>
+<p>&nbsp;</p>
     </main>
 
   </div>
+  <footer class="clearfix">
+	<span class="copyright"><a href="https://mmborres.github.io/index.html" class="contactdetails">BACK TO PROJECTS</a></span>
+	<span class="message">Copyright@2019 | CONNECT: <a href="https://www.linkedin.com/in/mabethmborres/" class="contactdetails" target="_top">MABETH BORRES</a></span>
+  </footer>
+  
+  
+  <script>
+	function checkValue() {
 
+		var gameLevel = document.getElementById("gameLevel").value;
+		var msg = "";
+		
+		var defaultmsg = "Number of Levels in the Game must be a positive number."
+		
+		if ( gameLevel==="" ) {
+			msg = msg.concat(defaultmsg);
+			alert (msg); //cannot be empty
+			return false;
+		}
+				
+		if ( gameLevel<1 || gameLevel>10) {
+			
+			if (gameLevel<1) msg = msg.concat(defaultmsg);
+			if (gameLevel>10) msg = msg.concat("Number of Levels in the Game cannot be greater than 10, the Maximum level.");
+			
+		} else if ( gameLevel>=1 && gameLevel<=10 ) {
+			// accepted
+		} else {
+			//not a number
+			msg = msg.concat(defaultmsg);
+		}
+
+		if (msg.length>0) {
+			alert(msg);
+			return false;
+		}
+	}
+</script>
 </body>
 </html>

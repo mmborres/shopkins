@@ -1,69 +1,41 @@
-/*@import url('https://fonts.googleapis.com/css?family=Caveat+Brush');*/
-/*@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');*/
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy');
-/*@import url('https://fonts.googleapis.com/css?family=Russo+One');*/
-/*@import url('https://fonts.googleapis.com/css?family=Roboto');*/
-
 @import url('https://fonts.googleapis.com/css?family=Oleo+Script:400,700');
 
-/*
-//background
-https://media.giphy.com/media/l0K4hBbFA3XBcD1V6/giphy.gif
-
-//winner gameover
-https://media.giphy.com/media/d2W6OUVGqrhyAbG8/giphy.gif
-
-//no winner
-https://media.giphy.com/media/3osxYh5db5WFXxe9i0/giphy.gif
-*/
-
 body {
-  /*margin: 0;
-  padding: 0;*/
   background-image: url("../img/bgshopkins.jpg");
+  /* Image is centered vertically and horizontally at all times */
+  background-position: top center;
+  
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  
+  /* Makes the image fixed in the viewport so that it doesn't move when 
+     the content height is greater than the image height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based on its container's size */
   background-size: cover;
-  /*font-family: 'Caveat Brush', cursive;*/
-  /*font-family: 'Gloria Hallelujah', cursive;*/
-  /*font-family: 'Luckiest Guy', cursive;*/
-  /*font-family: 'Russo One', sans-serif;*/
-  /*font-family: 'Roboto', sans-serif;*/
 }
 
-.container {
-  max-width: 960px; /* common value, responsive design */
-  margin: 0 auto;
-
-  /*padding: 1em;*/ /*space inside the box*/
-   /*space outside the box*/
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+  body {
+    /* The file size of this background image is 93% smaller
+     * to improve page load speed on mobile internet connections */
+    background-image: url("../img/bgshopkins.jpg");
+  }
 }
-
-/*body {
-  background-color: #222;
-  margin: 0;
-  padding: 0;
-}*/
-
-/*.container {
-  max-width: 960px;
-  margin: 0 auto;
-  background-color: #ccc;
-  padding: 1em;
-  border-bottom-left-radius: 1em;
-  border-bottom-right-radius: 1em;
-}*/
 
 p {
   text-align:justify;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 nav {
   text-align: center;
   font-weight: bold;
   vertical-align: text-bottom;
-  font-size: 50px;
+  font-size: 35px;
   font-family: 'Luckiest Guy', cursive;
   padding: 5px;
 }
@@ -87,7 +59,7 @@ h2 {
 	/*color: black;*/
 	text-align: center;
 	/*padding: 1em;*/
-	font-size: 50px;
+	font-size: 35px;
 	/*font-family: 'Caveat Brush', cursive;*/
   font-family: 'Oleo Script', cursive;
 	letter-spacing: 1px;
@@ -100,7 +72,6 @@ h2 {
 h3 {
 	color: black;
 	text-align: center;
-	/*padding: 1em;*/
 	font-size: 30px;
 	font-family: 'Caveat Brush', cursive;
 	letter-spacing: 1px;
@@ -109,36 +80,17 @@ h3 {
 p {
 	color: black;
 	text-align: center;
-	/*padding: 1em;*/
 	font-size: 30px;
 	font-family: 'Caveat Brush', cursive;
 	letter-spacing: 1px;
 }
-
-.pClass {
-	color: black;
-	text-align: center;
-	/*padding: 1em;*/
-	font-size: 30px;
-	font-family: 'Caveat Brush', cursive;
-	letter-spacing: 1px;
-}
-
 
 div {
 	text-align: center;
-	/*padding: 1em;*/
-}
-
-.imgrow {
-	display: flex;
-	padding: 0;
-	margin: 0;
 }
 
 main {
   display: inline-block;
-  /*width: 75%;*/
 }
 
 main img {
@@ -160,15 +112,6 @@ img {
 
 }
 
-.imglevel6up {
-  width: 100px;
-  height: 100px;	
-}
-
-.imgbutton {
-	border: 0;
-}
-
 aside {
   display: inline-block;
   width: 21%;
@@ -181,6 +124,51 @@ aside {
 
 aside ul {
   padding-left: 17px;
+}
+
+footer {
+	text-transform: uppercase;
+	padding: 25px;
+	background-color: #0d2c40;
+	color: white;
+	font-family: "Droid Serif", serif;
+	font-size: 16px;
+	letter-spacing: .08em;
+	font-weight: 500;
+}
+
+/** CLASSES **/
+
+.imgCongrats {
+	width: 900px;
+	height: 500px;
+}
+
+.pClass {
+	color: black;
+	text-align: center;
+	/*padding: 1em;*/
+	font-size: 30px;
+	font-family: 'Caveat Brush', cursive;
+	letter-spacing: 1px;
+}
+
+.imgrow {
+	display: flex;
+	padding: 0;
+	margin: 0;
+}
+
+.imglevel6up {
+  width: 100px;
+  height: 100px;	
+}
+
+.imgbutton {
+	border: 0;
+	width: 160px;
+	height: 60px;
+	padding-left: 10px;
 }
 
 span.guessword {
@@ -208,4 +196,41 @@ span.answeredword {
   font-size: 100px;
   color: black;
   border-radius: 0.2em;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	content: " ";
+	clear: both;
+	height: 0;
+	font-size: 0;
+}
+
+.copyright {
+	float: left;
+}
+
+.message {
+	float: right;
+}
+
+.afooter {
+	font-size: 16px;
+	text-align: center;
+
+}
+
+.name {
+	color: #f15b31;
+	font-weight: 700;
+}
+
+.contactdetails {
+	font-family: "Droid Serif", serif;
+	/*font-size: 18px;*/
+	text-transform: none;
+	padding: 0px;
+	text-decoration: none;
+	color: orange;
 }

@@ -52,13 +52,13 @@ var levelUp = function(){
 		document.body.style.backgroundImage = newBackgroundImage;
 	}*/
 		
-	var audio = new Audio("images/applause.mp3");
+	var audio = new Audio("img/applause.mp3");
 		
 	if (playLevel === maxLevel) {
 		msg = msg.concat("\nWhat a feat! You are the Winner!")
 			
 		// end game sound 
-		audio = new Audio("images/homerun.mp3"); //done with level20
+		audio = new Audio("img/homerun.mp3"); //done with level20
 	}
 		
 	audio.play(); //applause
@@ -134,31 +134,35 @@ function processEndGame() {
 	divrow.setAttribute('class', "gameboard");
 
 	var cardElement = document.createElement('img');
-	cardElement.setAttribute('src', "images/winner.png");
+	cardElement.setAttribute('src', "img/winner.png");
+	cardElement.setAttribute('class', "imgCongrats");
+	//cardElement.setAttribute('height', "500");
+	//cardElement.setAttribute('width', "900");
 	
 	divrow.appendChild(cardElement);
 
 	divCards.appendChild(divrow);
 	
-	//leave reset button
+	//add shuffle
 	
-	var pbuttons = document.getElementById("buttons"); //parent
+	const $playAgain = $('<img>');
+    $playAgain.attr('src', "img/playagain.gif");
+	$playAgain.attr('class', "imgbutton");
+	$playAgain.attr('height', "65");
+	$playAgain.attr('width', "200");
+    $playAgain.on('click', playAgain );
+
+	const $resetstats = $('<img>');
+	$resetstats.attr('src', "img/resetstats.jpg");
+	$resetstats.attr('class', "imgbutton");
+	$resetstats.attr('height', "60");
+	$resetstats.attr('width', "140");
+    $resetstats.on('click', restartGame );
 	
-	if (pbuttons.hasChildNodes) {
-		
-		var nd = document.getElementById('shufflebutton'); //only shuffle button
-		if (nd !== null) {
-			var bt = document.createElement('button');
-			bt.setAttribute('class', "hidden");
-			bt.setAttribute('id', "buttonextra");
-			bt.innerHTML = "hide";
+	$('#playagain').append($playAgain);
+	$('#playagain').append($resetstats);
 	
-			pbuttons.replaceChild(bt, nd);
-		}
-		
-		var rs = document.getElementById("restartbutton");
-		if (rs !== null) rs.innerHTML = "Restart Game?";
-	}
+	$('#playagain').attr('visibility', "visible");
 }
 
 function sleep( millisecondsToWait ) //allow to delay flipping card to back face
@@ -283,6 +287,9 @@ var createBoard = function(){
 
 function playAgain() { //without reloading 
 	resetBoard(); //clear board and cards storage
+	$('#gameboard').html("");
+	$('#playagain').html("");
+	$('#playagain').attr('visibility', "hidden");
 	createBoard(); //setup board
 }
 
