@@ -137,6 +137,58 @@ footer {
 	font-weight: 500;
 }
 
+button {
+	font-family: "Droid Serif", serif;
+	line-height: 26px;
+	font-size: 18px;
+	background-color: #00a6b3;
+  	border: none;
+  	color: white;
+  	padding: 10px;
+  	border-radius: 15px;
+  	padding-right: 14px;
+  	padding-left: 14px;
+}
+
+button:active {
+	outline: none;
+	border: none;
+}
+
+button:focus { 
+	outline: none; 
+}
+
+a { /* Instructions Game */
+	text-decoration: none;
+	font-family: "Raleway", sans-serif;
+	color: #f15b31;
+	letter-spacing: 1px;
+	font-weight: 600;
+	font-size: 18px;
+	text-transform: uppercase;
+	padding: 20px;
+	border-bottom: 2px solid transparent;
+	/*margin: auto;*/
+}
+
+a: hover {
+	top: 0;
+	border-color: white;
+}
+
+input[type=text] {
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+}
+
+input[type=text]:focus {
+  background-color: lightblue; 
+}
+
 /** CLASSES **/
 
 .imgCongrats {
@@ -228,9 +280,61 @@ span.answeredword {
 
 .contactdetails {
 	font-family: "Droid Serif", serif;
-	/*font-size: 18px;*/
 	text-transform: none;
 	padding: 0px;
 	text-decoration: none;
 	color: orange;
+}
+
+.instruct {
+	text-align: justify;
+	padding-right: 50px;
+	padding-left: 50px;
+	padding-bottom: 0px;
+}
+
+.forminput {
+	font-family: "Droid Serif", serif;
+	font-size: 18px;
+	text-align: justify;
+	padding-bottom: 20px;
+}
+
+.gameinfo {
+	text-align: justify;
+	/*padding-right: 50px;
+	padding-left: 50px;*/
+	padding-bottom: 0px;
+	background: white;
+}
+
+.hidden {
+	color: white;
+	background-color: white;
+	outline: none;	
+	border: none;
+	padding: 0;
+}
+
+.gamepage {
+	background: white;
+	padding:3px 15px;
+}
+
+.inputbutton {
+	font-family: "Droid Serif", serif;
+	line-height: 26px;
+	font-size: 18px;
+	background-color: #00a6b3;
+  	border: none;
+  	color: white;
+  	padding: 10px;
+  	padding-right: 15px;
+  	padding-left: 15px;
+  	border-radius: 15px;
+  	padding-bottom: 10px;
+}
+
+.inputbutton:focus { 
+	outline: none; 
 }
